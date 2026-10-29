@@ -1,14 +1,4 @@
-# The Witching Hour — local preview
-
-Open `index.html` through a local web server, press the bat to enter, then click the spellbook.
-
-## Upload to GitHub
-
-Upload every file in this folder to the root of a GitHub repository. To publish it with GitHub Pages, open the repository's **Settings → Pages**, choose **Deploy from a branch**, then select the `main` branch and `/ (root)` folder.
-
-Keep the filenames unchanged so the font and music continue to load.
-
-The bundled `UnifrakturCook.ttf` display font is used under the SIL Open Font License; its licence is included as `OFL-UnifrakturCook.txt`.
+# The Witching Hour 
 
 ## Music
 
