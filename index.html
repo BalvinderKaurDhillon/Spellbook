@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The Witching Hour — a Halloween spellbook invitation.">
+  <title>The Witching Hour · The Forbidden Spellbook</title>
+  <style>
+    @font-face { font-family:UnifrakturCook; src:url('UnifrakturCook.ttf') format('truetype'); font-display:swap; }
+    :root { color-scheme: dark; --cream:#ffefd5; --gold:#e9b978; --ink:#24151a; --wine:#4b2028; --clay:#b96b40; --blackletter:UnifrakturCook,"Old English Text MT","Lucida Blackletter",fantasy; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-width:320px; background:#090712; color:var(--cream); font-family:Baskerville,"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif; }
+    body.locked { overflow:hidden; }
+    main { min-height:100vh; overflow:hidden; padding:28px 16px 48px; text-align:center; position:relative; isolation:isolate; background:radial-gradient(ellipse at 50% 28%,#53243c 0,#25152a 38%,#0d0a16 76%); transition:filter .8s ease,transform .8s ease; }
+    body.locked main { filter:blur(12px) brightness(.45); transform:scale(1.035); }
+    main::before { content:""; position:absolute; inset:0; z-index:-1; opacity:.45; background-image:radial-gradient(#ffe4a8 1px,transparent 1.5px),radial-gradient(#bf7bb8 1px,transparent 1.5px); background-position:0 0,31px 41px; background-size:79px 89px,113px 127px; mask-image:linear-gradient(to bottom,black,transparent 86%); animation:starDrift 18s ease-in-out infinite alternate; }
+    @keyframes starDrift { to { opacity:.7; background-position:18px -20px,18px 56px; } }
+    main::after { content:""; position:absolute; width:560px; height:560px; z-index:-1; top:72px; left:50%; transform:translateX(-50%); border-radius:50%; background:radial-gradient(circle,#ed9e7d28 0 8%,#c1678b13 35%,transparent 68%); filter:blur(8px); }
+    .shell { max-width:540px; margin:auto; position:relative; }
+    .small { color:#daba8a; font:10px/1.4 Arial,sans-serif; letter-spacing:3px; text-transform:uppercase; }
+    .moon { width:92px; height:92px; margin:10px auto 16px; position:relative; border-radius:50%; background:radial-gradient(circle at 38% 33%,#fff4cb 0 7%,#e8be7d 55%,#a96d55 100%); box-shadow:0 0 18px #ffd18a99,0 0 55px #cf6f8066; }
+    .eye { position:absolute; top:37px; width:24px; height:13px; overflow:hidden; border-radius:50% 50% 44% 44%; background:#140b12; transform:rotate(8deg); }
+    .eye::after { content:""; position:absolute; width:6px; height:7px; top:3px; left:9px; border-radius:50%; background:#ef5f4e; box-shadow:0 0 7px #ff3b31; transform:translate(var(--look-x,0),var(--look-y,0)); transition:transform .12s ease-out; }
+    .eye.left { left:19px; }.eye.right { right:19px; transform:rotate(-8deg); }
+    h1,h2,.cover strong,.inside strong,.item strong,.gate-title { font-family:var(--blackletter); font-weight:400; font-style:normal; }
+    h1 { color:var(--cream); font-size:clamp(48px,13vw,88px); line-height:.82; margin:14px 0 24px; letter-spacing:.01em; overflow-wrap:anywhere; text-shadow:0 4px 25px #0008; }
+    h1 em { color:#f0a56c; font-style:normal; }
+    .intro { color:#e5c6c2; font-size:16px; line-height:1.65; max-width:350px; margin:0 auto 20px; }
+    .book { width:min(310px,88%); height:300px; border:0; padding:0; margin:19px auto 14px; display:block; position:relative; perspective:900px; cursor:pointer; background:transparent; filter:drop-shadow(0 25px 25px #000b); }
+    .inside { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; padding:32px; overflow:hidden; border:4px double #79513c; border-radius:3px 13px 13px 3px; background:radial-gradient(circle at 48% 42%,#f5dfae,#dfc18c 75%); color:#4b292b; box-shadow:inset 0 0 42px #8e5d3b55; }
+    .inside::before,.inside::after { content:"✦"; position:absolute; color:#82524a; font-size:12px; }
+    .inside::before { top:22px; left:24px; }.inside::after { right:24px; bottom:22px; }
+    .inside strong { font-size:45px; line-height:.9; letter-spacing:.01em; }
+    .inside-sigil { color:#704143; font-size:26px; letter-spacing:12px; }
+    .inside-copy { color:#6d4640; font:10px/1.8 Arial,sans-serif; letter-spacing:.15em; text-transform:uppercase; }
+    .cover { position:absolute; z-index:1; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:13px; border:9px double #e1b071; border-left:15px solid #5a2238; border-radius:3px 13px 13px 3px; box-shadow:inset 0 0 0 6px #240c20, inset 0 0 70px #bd66862c; transform-origin:left; transition:transform .85s cubic-bezier(.2,.7,.2,1); backface-visibility:hidden; background:radial-gradient(ellipse at 50% 38%,#8d3a58,#361326 68%); }
+    .cover span { color:#e6be85; font:10px Arial,sans-serif; letter-spacing:2px; } .cover strong { color:#f1c98e; font-size:43px; line-height:.82; } .sigil { color:var(--gold); font-size:44px; }
+    .book:not(.open) .cover { animation:coverPulse 2.8s ease-in-out infinite; }
+    @keyframes coverPulse { 50% { box-shadow:inset 0 0 0 6px #240c20,inset 0 0 78px #f1a16a38,0 0 26px #e38a7533; } }
+    .book.open .cover { transform:rotateY(-154deg); }
+    .book:hover .cover { box-shadow:inset 0 0 0 6px #240c20, inset 0 0 75px #f1a16a40,0 0 30px #e37b6c33; }
+    .book:focus-visible { outline:3px solid #fff1aa; outline-offset:7px; border-radius:10px; }
+    .tip { min-height:1.5em; color:#e4b884; font:11px/1.5 Arial,sans-serif; letter-spacing:1.4px; margin:15px auto 0; }
+    .audio-status { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+    .button { display:inline-block; margin-top:14px; padding:13px 22px; border:1px solid #f3c285; border-radius:30px; background:linear-gradient(135deg,#d16b49,#9d3f50); color:#fff0d8; cursor:pointer; font:12px Arial,sans-serif; letter-spacing:1px; box-shadow:0 8px 22px #0005; }
+    .button:hover { transform:translateY(-2px); background:linear-gradient(135deg,#e67b53,#b34b60); } .button:focus-visible { outline:3px solid #fff1aa; outline-offset:3px; }
+    [hidden] { display:none !important; }
+    section { margin:30px auto 0; padding:24px 18px; max-width:430px; border:1px solid #a36a72; border-radius:11px; background:linear-gradient(145deg,#351b31ed,#1e1527ed); box-shadow:0 16px 35px #0004; }
+    #pages section { opacity:0; transform:translateY(22px) scale(.98); }
+    #pages.revealed section { animation:pageRise .7s cubic-bezier(.2,.75,.25,1) both; }
+    #pages.revealed section:nth-child(2) { animation-delay:.16s; } #pages.revealed section:nth-child(3) { animation-delay:.32s; }
+    @keyframes pageRise { to { opacity:1; transform:none; } }
+    h2 { color:#edc491; font-size:42px; line-height:.95; margin:8px 0 18px; } section p { font-size:14px; line-height:1.7; }
+    .item { padding:15px 9px; border-bottom:1px solid #644438; }
+    .item strong { display:block; color:#f3c98f; font-size:32px; line-height:1; }
+    .item span { display:block; margin-top:5px; color:#d2b7ad; font:11px/1.55 Arial,sans-serif; letter-spacing:.04em; }
+    .address { color:#ffe3ae; font-size:17px; line-height:1.55; }
+    .bats { position:absolute; inset:0; z-index:4; overflow:hidden; pointer-events:none; }
+    .bat { position:absolute; width:52px; height:24px; background:#050407; clip-path:polygon(0 20%,18% 35%,28% 15%,39% 42%,46% 30%,50% 0,54% 30%,61% 42%,72% 15%,82% 35%,100% 20%,90% 62%,72% 82%,57% 61%,50% 100%,43% 61%,28% 82%,10% 62%); filter:drop-shadow(0 3px 2px #000); }
+    .bat { transform:rotate(var(--r)) scale(var(--s)); }
+    .bat.one { left:8%; top:23%; --r:-13deg; --s:.72; --dx:-45vw; --dy:-20vh; }.bat.two { right:8%; top:27%; --r:12deg; --s:.9; --dx:48vw; --dy:-18vh; --delay:.06s; }.bat.three { left:4%; top:47%; --r:8deg; --s:.55; --dx:-48vw; --dy:5vh; --delay:.12s; }.bat.four { right:3%; top:53%; --r:-10deg; --s:.65; --dx:50vw; --dy:8vh; --delay:.18s; }.bat.five { left:13%; top:67%; --r:-7deg; --s:.45; --dx:-50vw; --dy:24vh; --delay:.22s; }
+    body.awake .bat { animation:scatter 1.15s cubic-bezier(.25,.75,.35,1) var(--delay,0s) both; }
+    @keyframes scatter { to { transform:translate(var(--dx),var(--dy)) rotate(28deg) scale(.35); opacity:0; } }
+    #fortune.cast { animation:fortuneReveal .5s ease both; }
+    @keyframes fortuneReveal { from { opacity:0; transform:scale(.94); filter:blur(5px); } to { opacity:1; transform:none; filter:none; } }
+    .gate { position:fixed; inset:0; z-index:50; display:grid; place-items:center; padding:28px; text-align:center; overflow:hidden; background:radial-gradient(circle at 50% 40%,#4d2444 0,#1b1020 38%,#07050b 78%); transition:opacity .55s ease .35s,visibility .55s ease .35s; }
+    .gate::before { content:""; position:absolute; inset:0; opacity:.35; background-image:radial-gradient(#ffe6a6 1px,transparent 1.5px); background-size:68px 74px; }
+    .gate-inner { position:relative; width:min(470px,92vw); padding:40px 26px 34px; border:1px solid #a87076; border-radius:18px; background:#1d111ee6; box-shadow:0 24px 90px #000b,inset 0 0 70px #9f526827; }
+    .gate-title { color:#f3c98f; font-size:clamp(62px,15vw,96px); line-height:.75; margin:10px 0 24px; text-shadow:0 0 26px #e38a7566; }
+    .gate-copy { max-width:320px; margin:0 auto 24px; color:#d8bec0; font-size:16px; line-height:1.55; }
+    .gate-bat { width:150px; height:90px; border:0; padding:0; cursor:pointer; position:relative; background:transparent; filter:drop-shadow(0 10px 8px #000); }
+    .gate-bat::before { content:""; position:absolute; inset:10px 4px; background:#030204; clip-path:polygon(0 20%,18% 35%,28% 15%,39% 42%,46% 30%,50% 0,54% 30%,61% 42%,72% 15%,82% 35%,100% 20%,90% 62%,72% 82%,57% 61%,50% 100%,43% 61%,28% 82%,10% 62%); transition:transform .25s ease; }
+    .gate-bat:hover::before,.gate-bat:focus-visible::before { transform:scale(1.08); }
+    .gate-bat:focus-visible { outline:2px solid #efc98d; outline-offset:7px; border-radius:50%; }
+    .gate-prompt { margin:8px 0 0; color:#d5ae82; font:10px Arial,sans-serif; letter-spacing:.24em; text-transform:uppercase; }
+    .gate.departing .gate-copy,.gate.departing .gate-title,.gate.departing .small,.gate.departing .gate-prompt { animation:sealFade .35s ease both; }
+    .gate.departing .gate-bat { animation:batEscape 1.05s cubic-bezier(.3,.05,.55,1) both; }
+    .gate.departing { opacity:0; visibility:hidden; }
+    @keyframes sealFade { to { opacity:0; transform:translateY(8px); } }
+    @keyframes batEscape { 35% { transform:translateY(-25px) scale(1.15) rotate(-7deg); } to { transform:translate(32vw,-75vh) scale(.25) rotate(25deg); opacity:0; } }
+    @media (max-width:380px) {
+      main { padding-inline:12px; }
+      .shell > .small { max-width:290px; margin-inline:auto; font-size:9px; letter-spacing:2px; }
+      h1 { font-size:46px; line-height:.86; }
+      .gate-title { font-size:54px; line-height:.82; }
+    }
+    @media (prefers-reduced-motion:reduce) { main::before,.cover,.bat,#pages section,#fortune { animation:none !important; transition:none !important; } #pages section { opacity:1; transform:none; } }
+  </style>
+</head>
+<body class="locked">
+  <div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
+    <div class="gate-inner">
+      <p class="small">A secret summons</p>
+      <h2 class="gate-title" id="gate-title">The Witching Hour</h2>
+      <p class="gate-copy">The forbidden pages reveal themselves only to those brave enough to break the seal.</p>
+      <button class="gate-bat" id="enter" type="button" aria-label="Press the bat to enter"></button>
+      <p class="gate-prompt">Press the bat to enter</p>
+    </div>
+  </div>
+  <main id="site" inert>
+    <div class="bats" aria-hidden="true"><span class="bat one"></span><span class="bat two"></span><span class="bat three"></span><span class="bat four"></span><span class="bat five"></span></div>
+    <div class="shell">
+      <p class="small">31 October 2026 · 3–7 PM · Hammersmith</p>
+      <div class="moon" aria-hidden="true"><span class="eye left"></span><span class="eye right"></span></div>
+      <p class="small">The seal has been broken · The moon is watching</p>
+      <h1>The Forbidden<br><em>Spellbook</em></h1>
+      <p class="intro">Five wandering souls. One enchanted gathering. The secrets of the night await.</p>
+
+      <button class="book" id="spellbook" type="button" aria-expanded="false" aria-describedby="book-tip audio-status">
+        <span class="inside" aria-hidden="true"><span class="inside-sigil">✦ ☾ ✦</span><strong>Welcome,<br>chosen one.</strong><span class="inside-copy">Your potion is brewing.<br>Your little spell awaits.</span></span>
+        <span class="cover" aria-hidden="true"><span>THE WITCHING HOUR</span><span class="sigil">♜ ☾ ✧</span><strong>The Forbidden<br>Spellbook</strong><span>OPEN TO BREAK THE BINDING</span></span>
+      </button>
+      <p class="tip" id="book-tip">✧ Open the cover to begin ✧</p>
+      <p class="audio-status" id="audio-status" role="status">Music preview ready — open the book to begin.</p>
+
+      <button class="button" id="reveal" type="button" aria-expanded="false" aria-controls="pages">Reveal the Forbidden Pages ✦</button>
+      <div id="pages" hidden>
+        <section>
+          <p class="small">Where the coven gathers</p>
+          <h2>The Summoning</h2>
+          <p><span class="address">iQ Hammersmith<br>230 Shepherds Bush Road<br>London W6 7NL</span><br><br>31 October 2026 · 3–7 PM</p>
+        </section>
+        <section>
+          <p class="small">What's bubbling?</p><h2>The Witch's Menu</h2>
+          <div class="item"><strong>The Charmer</strong><span>Bright, bubbly, and always the first to raise everyone’s spirits.</span></div>
+          <div class="item"><strong>The Little Monster</strong><span>Green-faced, sweet-natured, and stitched together with mischief.</span></div>
+          <div class="item"><strong>The Pale Phantom</strong><span>Pale, sweet, and prone to disappearing the moment you turn your back.</span></div>
+          <div class="item"><strong>The Familiar</strong><span>Smooth, autumn-born, and happiest when surrounded by a crunchy coven.</span></div>
+          <div class="item"><strong>The Restless Spirit</strong><span>Pale, crackling, and never content to stay in one place for long.</span></div>
+        </section>
+        <section>
+          <p class="small">The cauldron knows</p><h2>A Fortune for You</h2>
+          <p id="fortune" aria-live="polite">Your fate has not yet been revealed…</p>
+          <button class="button" id="ask" type="button">Ask the Cauldron ✦</button>
+        </section>
+      </div>
+    </div>
+  </main>
+  <script>
+    (() => {
+      const book = document.querySelector('#spellbook');
+      const gate = document.querySelector('#gate');
+      const enter = document.querySelector('#enter');
+      const site = document.querySelector('#site');
+      const tip = document.querySelector('#book-tip');
+      const status = document.querySelector('#audio-status');
+      const pages = document.querySelector('#pages');
+      const reveal = document.querySelector('#reveal');
+      const moon = document.querySelector('.moon');
+      const fortune = document.querySelector('#fortune');
+      const fortunes = [
+        'A pleasant surprise is waiting just around the corner.',
+        'Good news will arrive from an unexpected direction.',
+        'Your kindness will return to you when you least expect it.',
+        'A small risk will bring a delightful reward.',
+        'An old wish is closer than you think.',
+        'A new friendship will brighten the days ahead.',
+        'Your next bold choice will open a lucky door.',
+        'Something lost will soon find its way back to you.'
+      ];
+      const licensedClip = new Audio('licensed-somebodys-watching-me-clip.mp3');
+      licensedClip.preload = 'metadata';
+      licensedClip.loop = true;
+      let context, nodes = [];
+
+      enter.addEventListener('click', () => {
+        gate.classList.add('departing');
+        setTimeout(() => { gate.hidden = true; site.inert = false; document.body.classList.remove('locked'); book.focus(); }, matchMedia('(prefers-reduced-motion: reduce)').matches ? 100 : 950);
+      });
+
+      function stopAudio() {
+        licensedClip.pause(); licensedClip.currentTime = 0;
+        nodes.forEach(node => { try { node.stop(); } catch (_) {} }); nodes = [];
+      }
+      function placeholderAudio() {
+        context ??= new (window.AudioContext || window.webkitAudioContext)();
+        context.resume();
+        const gain = context.createGain(); gain.gain.setValueAtTime(.0001, context.currentTime);
+        gain.gain.exponentialRampToValueAtTime(.055, context.currentTime + .4);
+        gain.gain.exponentialRampToValueAtTime(.0001, context.currentTime + 15);
+        gain.connect(context.destination);
+        [130.81, 155.56, 196].forEach((frequency, index) => {
+          const oscillator = context.createOscillator(); oscillator.type = 'sine'; oscillator.frequency.value = frequency;
+          oscillator.connect(gain); oscillator.start(); oscillator.stop(context.currentTime + 15); nodes.push(oscillator);
+        });
+        status.textContent = 'Audio preview: original 15-second spooky placeholder (not Rockwell).';
+      }
+      function playMusic() {
+        stopAudio();
+        // If you have lawful rights to a clip, add the named MP3 beside this file.
+        licensedClip.currentTime = 0;
+        licensedClip.play().then(() => {
+          status.textContent = 'Music is playing on a loop.';
+        }).catch(placeholderAudio);
+      }
+      book.addEventListener('click', () => {
+        const isOpen = !book.classList.contains('open');
+        book.classList.toggle('open', isOpen); book.setAttribute('aria-expanded', isOpen);
+        document.body.classList.toggle('awake', isOpen);
+        tip.textContent = isOpen ? '✧ The forbidden pages are yours ✧' : '✧ Open the cover to begin ✧';
+        if (isOpen) playMusic(); else { stopAudio(); status.textContent = 'Music paused — open the book to play it again.'; }
+      });
+      reveal.addEventListener('click', () => {
+        const isHidden = pages.hidden; pages.hidden = !isHidden; pages.classList.toggle('revealed', isHidden); reveal.setAttribute('aria-expanded', isHidden);
+        reveal.textContent = isHidden ? 'Conceal the Forbidden Pages ✦' : 'Reveal the Forbidden Pages ✦';
+      });
+      document.querySelector('#ask').addEventListener('click', () => {
+        fortune.textContent = '✦ ' + fortunes[Math.floor(Math.random() * fortunes.length)] + ' ✦';
+        fortune.classList.remove('cast'); void fortune.offsetWidth; fortune.classList.add('cast');
+      });
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.addEventListener('pointermove', event => {
+        const rect = moon.getBoundingClientRect();
+        const x = Math.max(-4,Math.min(4,(event.clientX-(rect.left+rect.width/2))/28));
+        const y = Math.max(-3,Math.min(3,(event.clientY-(rect.top+rect.height/2))/28));
+        moon.style.setProperty('--look-x',x+'px'); moon.style.setProperty('--look-y',y+'px');
+      });
+    })();
+  </script>
+</body>
+</html>
